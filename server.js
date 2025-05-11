@@ -8,8 +8,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+
 mongoose
-  .connect(process.env.MONGO_URI || "mongodb://localhost:27017/userDB")
+  .connect("mongodb+srv://dbUser1:Dineshpri2002@cluster1.opudjte.mongodb.net/userDB?retryWrites=true&w=majority")
   .then(() => {
     console.log("Connected to MongoDB");
   })
@@ -17,13 +18,10 @@ mongoose
     console.error("Error connecting to MongoDB", err);
   });
 
-
 app.get("/api/users", async (req, res) => {
   try {
     const users = await User.find();
-    res
-      .status(200)
-      .json({ message: "Users fetched successfully", data: users });
+    res.status(200).json({ message: "Users fetched successfully", data: users });
   } catch (err) {
     res.status(500).json({ error: err });
   }
@@ -33,9 +31,7 @@ app.post("/api/users", async (req, res) => {
   try {
     const user = new User(req.body);
     const result = await user.save();
-    res
-      .status(201)
-      .json({ message: "User created successfully", data: result });
+    res.status(201).json({ message: "User created successfully", data: result });
   } catch (err) {
     res.status(500).json({ error: err });
   }
