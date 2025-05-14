@@ -10,7 +10,8 @@ app.use(express.json());
 
 
 mongoose
-  .connect("mongodb+srv://dbUser1:Dineshpri2002@cluster1.opudjte.mongodb.net/userDB?retryWrites=true&w=majority")
+  .connect(process.env.MONGO_URI || "mongodb+srv://dbUser1:Dineshpri2002@cluster1.opudjte.mongodb.net/userDB?retryWrites=true&w=majority")
+
   .then(() => {
     console.log("Connected to MongoDB");
   })
